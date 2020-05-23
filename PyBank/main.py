@@ -1,7 +1,8 @@
+#Import what we need. 
 import os
 import csv
 
-totalMonths = 0 #Declare  the globals to keep track of sums, min and max
+totalMonths = 0 #Variables to keep track of the totals, min and max.
 maxIncrease = 0 
 maxDecrease = 0 
 indexMonthMax = 0
@@ -10,9 +11,9 @@ totalIncome = 0
 netIncomeTotal = 0
 priorMonthProfitLoss = 0
 
-def PyBank(row): #Function 
+def PyBank(row): #Defines the function 
 
-    global totalMonths #call global functions into the function.
+    global totalMonths #Using global we can call the variables from outside the scope of the function.
     global maxIncrease
     global maxDecrease 
     global indexMonthMax
@@ -21,26 +22,31 @@ def PyBank(row): #Function
     global netIncomeTotal
     global priorMonthProfitLoss
 
-    dateIndex = row[0] #declare the date index
-    profitLossValue = int(row[1]) #declare the value of the groscolumn as integer for every row.
+    dateIndex = row[0] #Declares the variable dateIndex as the value under the datae column.
+    profitLossValue = int(row[1]) #Declares the variable as the integer of the value under the gross profit loss column.
 
     
-    totalMonths += 1 #Adds 1 for every iteration.
-    totalIncome += profitLossValue #adds the total income
+    totalMonths += 1 #Adds 1  to the total month counter everytime a row is iterated.
+    totalIncome += profitLossValue #Adds the the value of the gross profit/loss column to the total income everytime a row is iterated.
 
-    def avgNetIncome(): #nested function to calculate average
-            avgPL = netIncomeTotal / (totalMonths - 1)
+    def avgNetIncome(): #Nested function to calculate average income.
+
+            avgPL = netIncomeTotal / (totalMonths - 1) #Calulates average montly profit/loss  from the net income total by month and divides it by the total of the months - 1 to account for the first value.
+
             return avgPL
 
-    if totalMonths > 1 : #start calculations after the first month.
+    if totalMonths > 1 : #During the first iteration the total months = 0 in this way the netIncome calculation starts after the first month.
 
-        netIncome = profitLossValue - priorMonthProfitLoss #net income from the  current row P/L minus the prior month P/L
-        netIncomeTotal += netIncome #Keep tally of the net income
+        netIncome = profitLossValue - priorMonthProfitLoss #Net income from the  current row P/L minus the prior month P/L
+        netIncomeTotal += netIncome #Keeps tally of the total net income
 
-        if netIncome > maxIncrease : #conditional test to add max/min and month index.
+        if netIncome > maxIncrease : #Conditional test to add max/min and to return the month of each.
+
             maxIncrease = netIncome
             indexMonthMax = dateIndex
+
         elif netIncome < maxDecrease :
+
             maxDecrease = netIncome
             indexMonthMin = dateIndex
         
@@ -48,22 +54,22 @@ def PyBank(row): #Function
     
         s='-'*50
         return (f"{s}\n Financial Analysis \n \n Total Months: {totalMonths} \n Net Income: ${totalIncome} \n Average Change: ${round(avgNetIncome(),2)} \n Greatest Increase in Profits: {indexMonthMax} ({maxIncrease}) \n Greatest Decrease in Profits: {indexMonthMin} ({maxDecrease}) \n {s}")
-        #returns the result.
+        #------>Returns the result of everything <-------------
     else:
-        priorMonthProfitLoss += profitLossValue #assigns the first profit or loss value to the first month.
+        priorMonthProfitLoss += profitLossValue #Assigns the first profit/loss value to the prior month profitLoss.
 
-fileName = os.path.join('Resources','budget_data.csv') #path to file
+fileName = os.path.join('Resources','budget_data.csv') #Path to file
 
-with open(fileName, 'r') as csvfile: #Opens the file with reader settings as 'csvfile.
+with open(fileName, 'r') as csvfile: #Opens the file with reader settings as csvfile.
 
-    csvreader = csv.reader(csvfile, delimiter=',') #csv reader  is assigned the csv file with delimiter: ,
-    csvheader = next(csvreader,None) #to skip the header in the calculations. we would get error when adding the netIncome if we do not add this part.
+    csvreader = csv.reader(csvfile, delimiter=',') #Csv reader  is assigned the csv file with delimiter: ,
+    csvheader = next(csvreader,None) #to skip the header in the calculations. --> we would get error when adding the netIncome if we do not add this part.
 
     for row in csvreader: #for every row in the csvreader
-        results = PyBank(row) #we assign the value returned at the end of the iteration to the variable RESULTs.
+        results = PyBank(row) #We run the PyBank function to every row and result is assguned to the variable results to print all the results  at the end.
 
 print(results) #print results.
 
-textCopy = open('textCopy.txt','w') #creates copy as TXT
+textCopy = open('textCopy.txt','w') #Ceates copy as TXT
 print(results, file=textCopy)
-textCopy.close()
+textCopy.close() 
