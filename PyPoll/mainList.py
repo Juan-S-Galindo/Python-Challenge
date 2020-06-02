@@ -47,7 +47,7 @@ with open(fileName, 'r') as csvfile: #Opens the file with reader settings as csv
 
             for i in range(len(candidatelist)): #for loop to print a line for each candidate.
 
-                print (f"{candidatelist[i]}: {round((candidateVotes[i]/totalVotes)*100,2)}% ({candidateVotes[i]})", file=textCopy) #Prints the key and the value in the key rounded to 2 decimals in % format and also prints the total votes AND SAVES THE TXT COPY.
+                print (f"{candidatelist[i]}: {(candidateVotes[i] / totalVotes) * 100:.3f}% ({candidateVotes[i]})", file=textCopy) #Prints the key and the value in the key rounded to 2 decimals in % format and also prints the total votes AND SAVES THE TXT COPY.
 
             print(s, file=textCopy)
             print(f"Winner: {winnerCandidate}", file=textCopy)  #Prints the name of the candidate with the highest votes.
@@ -62,7 +62,7 @@ with open(fileName, 'r') as csvfile: #Opens the file with reader settings as csv
             print(f"Total Votes: {totalVotes}")
             print(s)
             for i in range(len(candidatelist)): #for loop to print a line for each candidate.
-                print (f"{candidatelist[i]}: {round((candidateVotes[i]/totalVotes)*100,2)}% ({candidateVotes[i]})")
+                print (f"{candidatelist[i]}: {(candidateVotes[i] / totalVotes) * 100:.3f}% ({candidateVotes[i]})")
 
             print(s)
             print(f"Winner: {winnerCandidate}")

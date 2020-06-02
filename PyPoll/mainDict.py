@@ -29,22 +29,21 @@ def PyPoll(row) : #PyPoll function to print the final results and all the mumbo 
         s='-'*20
         textCopy = open('textCopy.txt','w') #creates copy as TXT
 
-        print(s, file=textCopy)
-        print("ELECTION RESULTS", file=textCopy)
-        print(s, file=textCopy)
+        print(s, file = textCopy)
+        print("ELECTION RESULTS", file = textCopy)
+        print(s, file = textCopy)
         print(f"Total Votes: {totalVotes}", file=textCopy)
-        print(s, file=textCopy)
+        print(s, file = textCopy)
 
         def votes(): #Nested function to print the dictionary.
             for i in candidatesDict: #for every index in the candidate dictionary.
-
-               print (f"{i}: {(round(candidatesDict[i]/totalVotes)*100,2)}% ({candidatesDict[i]})", file=textCopy) #Prints the key and the value in the key rounded to 2 decimals in % format and also prints the total votes AND SAVES THE TXT COPY.
+                print ((f"{i}: {(candidatesDict[i]/totalVotes)*100:.3f}% ({candidatesDict[i]})"), file = textCopy) #Prints the key and the value in the key rounded to 2 decimals in % format and also prints the total votes AND SAVES THE TXT COPY.
 
         votes() #Calls the nested function to print in the TXT file.
 
-        print(s, file=textCopy)
-        print(f"Winner: {keyMax}", file=textCopy)  #Prints the name of the candidate with the highest votes.
-        print(s, file=textCopy)
+        print(s, file = textCopy)
+        print(f"Winner: {keyMax}", file = textCopy)  #Prints the name of the candidate with the highest votes.
+        print(s, file = textCopy)
 
         textCopy.close() #Closes the txt file.
 #--------------------------------------------------------------------------------------------------------------
@@ -57,7 +56,7 @@ def PyPoll(row) : #PyPoll function to print the final results and all the mumbo 
         def votesT(): #Nested function to print the dictionary of the candidates.
 
             for i in candidatesDict:
-               print (f"{i}: {round((candidatesDict[i]/totalVotes)*100,2)}% ({candidatesDict[i]})")
+                print (f"{i}: {(candidatesDict[i]/totalVotes)*100:.3f}% ({candidatesDict[i]})")
         
         votesT() #Calls the nested function to print in the TERMINAL.
         
@@ -75,14 +74,3 @@ with open(fileName, 'r') as csvfile: #Opens the file with reader settings as csv
 
     for row in csvreader: #For every row in the csvreader
         PyPoll(row) #Run the function for every row.
-
-
-       
-
-
-
-    
-        
-
-
-
